@@ -1,21 +1,24 @@
-package br.newtonpaiva.lab.tcc.integration;
+package br.newtonpaiva.lab.tcc;
 
 import static br.newtonpaiva.lab.tcc.common.enums.RegimeDeCurso.PRESENCIAL;
 import static br.newtonpaiva.lab.tcc.common.enums.RegimeDeCurso.SEMI_PRESENCIAL;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import br.newtonpaiva.lab.tcc.api.cursos.request.CursoRequest;
 import br.newtonpaiva.lab.tcc.api.cursos.response.CursoResponse;
 
+@RunWith(SpringRunner.class)
 public class CursosResourceTest extends AbstractResourceTest{
 
     private static final String PATH_CURSOS = "/v1/cursos";
 
     @Test
-    void testGetAll_shouldReturnStatusOk() {
+    public void testGetAll_shouldReturnStatusOk() {
         createRequest().when()
             .get(PATH_CURSOS)
             .then()
@@ -24,7 +27,7 @@ public class CursosResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    void testGetById_withInvalidId_shouldReturnNotFoundException() {
+    public void testGetById_withInvalidId_shouldReturnNotFoundException() {
         // given
         var id = "1931fdb3-2143-4cbc-933a-984f8d5f2955";
 
@@ -42,7 +45,7 @@ public class CursosResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    void testCreate() {
+    public void testCreate() {
         // given
         String id = null;
         var request = new CursoRequest(id, "Exatas", "Ciência da Computação", PRESENCIAL, 8);
@@ -63,7 +66,7 @@ public class CursosResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    void testUpdate() {
+    public void testUpdate() {
         // given
         String id = null;
         var request = new CursoRequest(id, "Exatas", "Ciência da Computação", PRESENCIAL, 8);
@@ -101,7 +104,7 @@ public class CursosResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    void testDelete() {
+    public void testDelete() {
         // given
         String id = null;
         var request = new CursoRequest(id, "Exatas", "Ciência da Computação", PRESENCIAL, 8);
