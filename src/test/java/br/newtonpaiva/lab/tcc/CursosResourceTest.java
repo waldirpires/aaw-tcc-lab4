@@ -5,7 +5,7 @@ import static br.newtonpaiva.lab.tcc.common.enums.RegimeDeCurso.SEMI_PRESENCIAL;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
