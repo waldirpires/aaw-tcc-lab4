@@ -28,22 +28,27 @@ public class AlunoController implements AlunosResource{
 
     @Autowired
     private AlunoService alunoService;
-    
+
     @Autowired
     private CursoService cursoService;
+
+    AlunoController(AlunoService alunoService, CursoService cursoService) {
+        this.alunoService = alunoService;
+        this.cursoService = cursoService;
+    }
 
     @Override
     public ResponseEntity<List<AlunoResponse>> getAll() {
         log.info("GET alunos");
-        
+
         List<Aluno> lista = alunoService.getAlunos();
-        
+
         List<AlunoResponse> response = new ArrayList<AlunoResponse>();
-        
+
         lista.forEach(aluno ->  {
             response.add(AlunoResponse.buildFrom(aluno));
         });
-        
+
         return ResponseEntity.ok(response);
     }
 
@@ -52,7 +57,7 @@ public class AlunoController implements AlunosResource{
         log.info("GET aluno by ID: {}", id);
 
         Aluno aluno = alunoService.getById(id.get());
-        
+
         return ResponseEntity.ok(AlunoResponse.buildFrom(aluno));
     }
 
@@ -61,15 +66,15 @@ public class AlunoController implements AlunosResource{
         log.info("POST criar aluno: {}", request.get());
 
         Curso curso = cursoService.getById(request.get().getCursoId());
-        
+
         Aluno aluno = new Aluno()
                 .withAnoSemestreDeEntrada(request.get().getAnoSemestreDeEntrada())
                 .withCurso(curso)
                 .withMatricula(request.get().getMatricula())
                 .withNomeCompleto(request.get().getNomeCompleto());
-        
+
         aluno = alunoService.create(aluno);
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).body(AlunoResponse.buildFrom(aluno));
     }
 
@@ -86,14 +91,14 @@ public class AlunoController implements AlunosResource{
                 .withNomeCompleto(request.get().getNomeCompleto());
 
         aluno = alunoService.update(id.get(), aluno);
-        
+
         return ResponseEntity.status(HttpStatus.OK).body(AlunoResponse.buildFrom(aluno));
     }
 
     @Override
     public ResponseEntity<Void> deleteById(Optional<String> id) {
         log.info("DELETE remover aluno: {}", id);
-        
+
         alunoService.deleteById(id.get());
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

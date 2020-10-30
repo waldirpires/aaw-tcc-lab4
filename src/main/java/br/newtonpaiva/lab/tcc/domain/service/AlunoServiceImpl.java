@@ -26,7 +26,8 @@ public class AlunoServiceImpl implements AlunoService {
         Optional<Aluno> resultado = repo.findById(id);
 
         if (resultado.isEmpty()) {
-            throw new NotFoundException(String.format("%s com ID [%s] não encontrado.", "Aluno", id));
+            throw new NotFoundException(
+                String.format("%s com ID [%s] não encontrado.", "Aluno", id));
         }
 
         return resultado.get();
